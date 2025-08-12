@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- css link  -->
+    <link rel="stylesheet" href="assets/css/dashboard.css">
+</head>
+
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <div class="admin-sidebar" id="sidebar">
+            <div class="sidebar-logo">
+                <i class="fas fa-chart-line"></i>
+                <h2>Portfolio Admin</h2>
+            </div>
+
+            <nav class="admin-nav">
+                <ul>
+                    <li>
+                        <a href="#" class="active">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span class="nav-label">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="pages/porjects.html">
+                            <i class="fas fa-blog"></i>
+                            <span class="nav-label">Projects</span>
+                            <span class="nav-badge">24</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-comments"></i>
+                            <span class="nav-label">Comments</span>
+                            <span class="nav-badge">42</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-users"></i>
+                            <span class="nav-label">Subscribers</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-chart-bar"></i>
+                            <span class="nav-label">Analytics</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-cog"></i>
+                            <span class="nav-label">Settings</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-user-shield"></i>
+                            <span class="nav-label">Admin</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span class="nav-label">Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="admin-main">
+            <!-- Topbar -->
+            <div class="admin-topbar">
+                <div class="topbar-left">
+                    <span class="menu-toggle" id="menuToggle">
+                        <i class="fas fa-bars"></i>
+                    </span>
+                    <div class="topbar-title">Dashboard Overview</div>
+                </div>
+
+                <div class="admin-dropdown">
+                    <button class="admin-dropbtn">
+                        <div class="admin-avatar">AJ</div>
+                        <span class="admin-name">Admin Jane</span>
+                        <i class="fas fa-caret-down"></i>
+                    </button>
+                    <div class="admin-dropdown-content">
+                        <a href="#">
+                            <i class="fas fa-user"></i>
+                            My Profile
+                        </a>
+                        <a href="#">
+                            <i class="fas fa-cog"></i>
+                            Account Settings
+                        </a>
+                        <a href="#">
+                            <i class="fas fa-bell"></i>
+                            Notifications
+                        </a>
+                        <a href="#">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="admin-content">
+                <div class="content-header">
+                    <h1 class="content-title">Dashboard Overview</h1>
+                    <p class="content-subtitle">Welcome back, Admin Jane. Here's what's happening with your portfolio
+                        today.</p>
+                </div>
+
+                <!-- Dashboard Cards -->
+                <div class="dashboard-cards">
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <div class="card-icon posts">
+                                <i class="fas fa-blog"></i>
+                            </div>
+                        </div>
+                        <div class="card-stats">24</div>
+                        <h3 class="card-title">Total Posts</h3>
+                        <p class="card-desc">Published articles on your portfolio</p>
+                        <div class="card-trend positive">
+                            <i class="fas fa-arrow-up"></i> 12% from last month
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <div class="card-icon users">
+                                <i class="fas fa-users"></i>
+                            </div>
+                        </div>
+                        <div class="card-stats">1,842</div>
+                        <h3 class="card-title">Monthly Visitors</h3>
+                        <p class="card-desc">Unique visitors to your portfolio</p>
+                        <div class="card-trend positive">
+                            <i class="fas fa-arrow-up"></i> 24% from last month
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <div class="card-icon comments">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                        </div>
+                        <div class="card-stats">142</div>
+                        <h3 class="card-title">Engagement</h3>
+                        <p class="card-desc">Comments & interactions this month</p>
+                        <div class="card-trend positive">
+                            <i class="fas fa-arrow-up"></i> 8% from last month
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <div class="card-icon views">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                        </div>
+                        <div class="card-stats">24.8K</div>
+                        <h3 class="card-title">Total Views</h3>
+                        <p class="card-desc">All-time views across your content</p>
+                        <div class="card-trend positive">
+                            <i class="fas fa-arrow-up"></i> 3.2K this month
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <div class="card-icon engagement">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                        </div>
+                        <div class="card-stats">92%</div>
+                        <h3 class="card-title">Engagement Rate</h3>
+                        <p class="card-desc">Audience interaction with content</p>
+                        <div class="card-trend negative">
+                            <i class="fas fa-arrow-down"></i> 2% from last month
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <div class="card-icon revenue">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                        </div>
+                        <div class="card-stats">$3,240</div>
+                        <h3 class="card-title">Revenue</h3>
+                        <p class="card-desc">Estimated monthly earnings</p>
+                        <div class="card-trend positive">
+                            <i class="fas fa-arrow-up"></i> 18% from last month
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="admin-footer">
+                <p>&copy; 2023 Portfolio Admin Panel. All rights reserved. | Designed with <i class="fas fa-heart"
+                        style="color: #e74c3c;"></i> for creative professionals</p>
+            </div>
+        </div>
+    </div>
+<script src="assets/js/script.js"></script>
+</body>
+
+</html>
