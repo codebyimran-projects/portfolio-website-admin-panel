@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Management System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #0a0a0a;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .service-container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar Styles */
+        .service-sidebar {
+            width: 250px;
+            background: #111111;
+            border-right: 1px solid rgba(77, 166, 255, 0.2);
+            padding: 25px 0;
+            transition: all 0.3s ease;
+            position: fixed;
+            height: 100vh;
+            z-index: 100;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            padding: 0 25px 25px;
+            border-bottom: 1px solid rgba(77, 166, 255, 0.2);
+            margin-bottom: 25px;
+        }
+        
+        .sidebar-brand i {
+            font-size: 28px;
+            color: #4da6ff;
+            margin-right: 15px;
+        }
+        
+        .sidebar-brand h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #4da6ff, #0066cc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .service-nav ul {
+            list-style: none;
+            padding: 0 15px;
+        }
+        
+        .service-nav li {
+            margin-bottom: 5px;
+        }
+        
+        .service-nav a {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: #bbbbbb;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .service-nav a:hover, 
+        .service-nav a.active {
+            background: rgba(77, 166, 255, 0.1);
+            color: #fff;
+            transform: translateX(5px);
+        }
+        
+        .service-nav a.active {
+            border-left: 3px solid #4da6ff;
+            box-shadow: 0 0 15px rgba(77, 166, 255, 0.2);
+        }
+        
+        .service-nav i {
+            font-size: 1.2rem;
+            margin-right: 15px;
+            width: 25px;
+            text-align: center;
+        }
+        
+        .nav-text {
+            font-size: 1.05rem;
+            font-weight: 500;
+        }
+        
+        .nav-count {
+            margin-left: auto;
+            background: #4da6ff;
+            color: white;
+            font-size: 0.8rem;
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        
+        /* Main Content */
+        .service-main {
+            flex: 1;
+            margin-left: 250px;
+            transition: all 0.3s ease;
+        }
+        
+        /* Topbar Styles */
+        .service-topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+            background: #111111;
+            padding: 0 30px;
+            border-bottom: 1px solid rgba(77, 166, 255, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 90;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .topbar-section {
+            display: flex;
+            align-items: center;
+        }
+        
+        .menu-trigger {
+            font-size: 1.5rem;
+            margin-right: 20px;
+            cursor: pointer;
+            display: none;
+        }
+        
+        .topbar-heading {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #4da6ff;
+            text-shadow: 0 0 10px rgba(77, 166, 255, 0.5);
+        }
+        
+        .service-dropdown {
+            position: relative;
+        }
+        
+        .service-dropbtn {
+            display: flex;
+            align-items: center;
+            background: transparent;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            padding: 8px 15px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .service-dropbtn:hover {
+            background: rgba(77, 166, 255, 0.1);
+        }
+        
+        .service-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4da6ff, #0066cc);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        
+        .admin-username {
+            margin-right: 10px;
+            font-weight: 500;
+        }
+        
+        .service-dropdown-content {
+            position: absolute;
+            right: 0;
+            top: 120%;
+            background: #111111;
+            border: 1px solid rgba(77, 166, 255, 0.2);
+            border-radius: 10px;
+            min-width: 200px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: none;
+            overflow: hidden;
+            z-index: 100;
+        }
+        
+        .service-dropdown-content a {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: #bbbbbb;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .service-dropdown-content a:hover {
+            background: rgba(77, 166, 255, 0.1);
+            color: #fff;
+        }
+        
+        .service-dropdown-content i {
+            width: 25px;
+            margin-right: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .service-dropdown:hover .service-dropdown-content {
+            display: block;
+        }
+        
+        /* Content Area */
+        .service-content {
+            padding: 30px;
+            min-height: calc(100vh - 70px - 60px);
+        }
+        
+        .content-head {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .content-head-left h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #4da6ff, #0066cc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+        
+        .content-head-left p {
+            color: #bbbbbb;
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+        
+        /* Add Service Button */
+        .add-service-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 25px;
+            background: linear-gradient(135deg, #4da6ff, #0066cc);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(77, 166, 255, 0.3);
+        }
+        
+        .add-service-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(77, 166, 255, 0.5);
+        }
+        
+        .add-service-btn i {
+            font-size: 1.3rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .add-service-btn:hover i {
+            transform: rotate(90deg);
+        }
+        
+        /* Services Table */
+        .services-table-container {
+            background: rgba(15, 15, 15, 0.7);
+            border: 1px solid rgba(77, 166, 255, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        .services-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .services-table th {
+            text-align: left;
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(77, 166, 255, 0.2);
+            color: #4da6ff;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .services-table td {
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: #bbbbbb;
+        }
+        
+        .services-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .services-table tr:hover {
+            background: rgba(77, 166, 255, 0.05);
+        }
+        
+        /* Service Icon */
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            overflow: hidden;
+            background: rgba(20, 20, 20, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .service-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .service-icon i {
+            font-size: 1.8rem;
+            color: #4da6ff;
+        }
+        
+        /* Service Info */
+        .service-title {
+            font-weight: 600;
+            color: #fff;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        
+        .service-category {
+            font-size: 0.9rem;
+            color: #bbbbbb;
+        }
+        
+        /* Status Indicators */
+        .status-indicator {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .status-active {
+            background: rgba(46, 204, 113, 0.15);
+            color: #2ecc71;
+        }
+        
+        .status-draft {
+            background: rgba(243, 156, 18, 0.15);
+            color: #f39c12;
+        }
+        
+        .status-inactive {
+            background: rgba(149, 165, 166, 0.15);
+            color: #95a5a6;
+        }
+        
+        /* Action Buttons */
+        .action-set {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(77, 166, 255, 0.1);
+            color: #4da6ff;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .action-icon:hover {
+            background: rgba(77, 166, 255, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        .action-icon.delete {
+            background: rgba(231, 76, 60, 0.1);
+            color: #e74c3c;
+        }
+        
+        .action-icon.delete:hover {
+            background: rgba(231, 76, 60, 0.2);
+        }
+        
+        /* Footer */
+        .service-footer {
+            background: #111111;
+            border-top: 1px solid rgba(77, 166, 255, 0.2);
+            padding: 20px 30px;
+            text-align: center;
+            color: #bbbbbb;
+            font-size: 0.9rem;
+        }
+        
+        /* Service Form Modal */
+        .service-form-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .service-form-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .form-panel {
+            background: rgba(15, 15, 15, 0.95);
+            border: 1px solid rgba(77, 166, 255, 0.3);
+            border-radius: 15px;
+            width: 100%;
+            max-width: 700px;
+            box-shadow: 0 0 40px rgba(77, 166, 255, 0.2);
+            backdrop-filter: blur(10px);
+            transform: translateY(20px);
+            transition: transform 0.4s ease;
+        }
+        
+        .service-form-modal.active .form-panel {
+            transform: translateY(0);
+        }
+        
+        .form-head {
+            padding: 20px 25px;
+            border-bottom: 1px solid rgba(77, 166, 255, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .form-head h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            background: linear-gradient(90deg, #4da6ff, #0066cc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .close-form {
+            background: transparent;
+            border: none;
+            color: #bbbbbb;
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .close-form:hover {
+            color: #e74c3c;
+            background: rgba(231, 76, 60, 0.1);
+        }
+        
+        .form-body {
+            padding: 25px;
+        }
+        
+        .form-item {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #bbbbbb;
+            font-weight: 500;
+        }
+        
+        .form-field,
+        .form-text,
+        .form-select {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(25, 25, 25, 0.7);
+            border: 1px solid rgba(77, 166, 255, 0.2);
+            border-radius: 8px;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-field:focus,
+        .form-text:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: #4da6ff;
+            box-shadow: 0 0 0 3px rgba(77, 166, 255, 0.2);
+        }
+        
+        .form-text {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .form-col {
+            flex: 1;
+        }
+        
+        .form-cta {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            padding-top: 10px;
+        }
+        
+        .form-btn {
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #4da6ff, #0066cc);
+            color: white;
+            box-shadow: 0 5px 15px rgba(77, 166, 255, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(77, 166, 255, 0.5);
+        }
+        
+        .btn-secondary {
+            background: rgba(50, 50, 50, 0.5);
+            color: #bbbbbb;
+            border: 1px solid rgba(77, 166, 255, 0.2);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(70, 70, 70, 0.5);
+            color: #fff;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .service-sidebar {
+                transform: translateX(-100%);
+                width: 70px;
+            }
+            
+            .service-sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .service-main {
+                margin-left: 0;
+            }
+            
+            .sidebar-brand h2, 
+            .nav-text,
+            .nav-count {
+                display: none;
+            }
+            
+            .service-nav a {
+                justify-content: center;
+                padding: 15px;
+            }
+            
+            .service-nav i {
+                margin-right: 0;
+                font-size: 1.4rem;
+            }
+            
+            .service-nav a.active {
+                border-left: none;
+                border-radius: 50%;
+            }
+            
+            .menu-trigger {
+                display: block;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .service-topbar {
+                padding: 0 15px;
+            }
+            
+            .admin-username {
+                display: none;
+            }
+            
+            .service-dropbtn {
+                padding: 8px;
+            }
+            
+            .services-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .content-head {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .form-panel {
+                width: 95%;
+                margin: 0 auto;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .services-table th, 
+            .services-table td {
+                padding: 12px 10px;
+                font-size: 0.9rem;
+            }
+            
+            .action-set {
+                gap: 5px;
+            }
+            
+            .action-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 0.9rem;
+            }
+            
+            .form-head h2 {
+                font-size: 1.5rem;
+            }
+            
+            .form-body {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="service-container">
+        <!-- Sidebar -->
+        <div class="service-sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <i class="fas fa-cogs"></i>
+                <h2>Service Manager</h2>
+            </div>
+            
+            <nav class="service-nav">
+                <ul>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span class="nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="active">
+                            <i class="fas fa-concierge-bell"></i>
+                            <span class="nav-text">Services</span>
+                            <span class="nav-count">15</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-users"></i>
+                            <span class="nav-text">Clients</span>
+                            <span class="nav-count">42</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span class="nav-text">Appointments</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-chart-line"></i>
+                            <span class="nav-text">Analytics</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-cog"></i>
+                            <span class="nav-text">Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="service-main">
+            <!-- Topbar -->
+            <div class="service-topbar">
+                <div class="topbar-section">
+                    <span class="menu-trigger" id="menuTrigger">
+                        <i class="fas fa-bars"></i>
+                    </span>
+                    <div class="topbar-heading">Service Management</div>
+                </div>
+                
+                <div class="service-dropdown">
+                    <button class="service-dropbtn">
+                        <div class="service-avatar">AJ</div>
+                        <span class="admin-username">Admin Jane</span>
+                        <i class="fas fa-caret-down"></i>
+                    </button>
+                    <div class="service-dropdown-content">
+                        <a href="#">
+                            <i class="fas fa-user"></i> 
+                            My Profile
+                        </a>
+                        <a href="#">
+                            <i class="fas fa-cog"></i> 
+                            Account Settings
+                        </a>
+                        <a href="#">
+                            <i class="fas fa-sign-out-alt"></i> 
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Content -->
+            <div class="service-content">
+                <div class="content-head">
+                    <div class="content-head-left">
+                        <h1>Service Catalog</h1>
+                        <p>Manage your services and offerings for clients</p>
+                    </div>
+                    
+                    <button class="add-service-btn" id="addServiceBtn">
+                        <i class="fas fa-plus"></i>
+                        Add New Service
+                    </button>
+                </div>
+                
+                <!-- Services Table -->
+                <div class="services-table-container">
+                    <table class="services-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 70px;"></th>
+                                <th>Service</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Duration</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="service-icon">
+                                        <i class="fas fa-laptop-code"></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="service-title">Web Development</div>
+                                    <div class="service-category">Custom websites & applications</div>
+                                </td>
+                                <td>Development</td>
+                                <td>$1,500+</td>
+                                <td>2-4 weeks</td>
+                                <td>
+                                    <span class="status-indicator status-active">Active</span>
+                                </td>
+                                <td>
+                                    <div class="action-set">
+                                        <button class="action-icon" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="action-icon delete" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <div class="service-icon">
+                                        <i class="fas fa-paint-brush"></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="service-title">UI/UX Design</div>
+                                    <div class="service-category">User interface & experience</div>
+                                </td>
+                                <td>Design</td>
+                                <td>$800+</td>
+                                <td>1-2 weeks</td>
+                                <td>
+                                    <span class="status-indicator status-active">Active</span>
+                                </td>
+                                <td>
+                                    <div class="action-set">
+                                        <button class="action-icon" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="action-icon delete" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <div class="service-icon">
+                                        <i class="fas fa-server"></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="service-title">Cloud Hosting</div>
+                                    <div class="service-category">Cloud infrastructure setup</div>
+                                </td>
+                                <td>DevOps</td>
+                                <td>$300/mo</td>
+                                <td>Ongoing</td>
+                                <td>
+                                    <span class="status-indicator status-active">Active</span>
+                                </td>
+                                <td>
+                                    <div class="action-set">
+                                        <button class="action-icon" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="action-icon delete" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <div class="service-icon">
+                                        <i class="fas fa-chart-line"></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="service-title">SEO Optimization</div>
+                                    <div class="service-category">Search engine ranking</div>
+                                </td>
+                                <td>Marketing</td>
+                                <td>$500/mo</td>
+                                <td>Ongoing</td>
+                                <td>
+                                    <span class="status-indicator status-draft">Draft</span>
+                                </td>
+                                <td>
+                                    <div class="action-set">
+                                        <button class="action-icon" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="action-icon delete" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
+                                    <div class="service-icon">
+                                        <i class="fas fa-mobile-alt"></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="service-title">App Development</div>
+                                    <div class="service-category">iOS & Android applications</div>
+                                </td>
+                                <td>Development</td>
+                                <td>$2,500+</td>
+                                <td>4-8 weeks</td>
+                                <td>
+                                    <span class="status-indicator status-inactive">Inactive</span>
+                                </td>
+                                <td>
+                                    <div class="action-set">
+                                        <button class="action-icon" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="action-icon delete" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <div class="service-footer">
+                <p>&copy; 2023 Service Management System. All rights reserved. | Designed with <i class="fas fa-heart" style="color: #e74c3c;"></i> for service providers</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Service Form Modal -->
+    <div class="service-form-modal" id="serviceFormModal">
+        <div class="form-panel">
+            <div class="form-head">
+                <h2>Add New Service</h2>
+                <button class="close-form" id="closeForm">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="form-body">
+                <form id="serviceForm">
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-item">
+                                <label class="form-label" for="serviceName">Service Name</label>
+                                <input type="text" id="serviceName" class="form-field" placeholder="Enter service name" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-col">
+                            <div class="form-item">
+                                <label class="form-label" for="serviceCategory">Category</label>
+                                <select id="serviceCategory" class="form-select">
+                                    <option value="">Select category</option>
+                                    <option value="development">Development</option>
+                                    <option value="design">Design</option>
+                                    <option value="devops">DevOps</option>
+                                    <option value="marketing">Marketing</option>
+                                    <option value="consulting">Consulting</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-item">
+                                <label class="form-label" for="servicePrice">Price</label>
+                                <input type="text" id="servicePrice" class="form-field" placeholder="Enter price or range">
+                            </div>
+                        </div>
+                        
+                        <div class="form-col">
+                            <div class="form-item">
+                                <label class="form-label" for="serviceDuration">Duration</label>
+                                <input type="text" id="serviceDuration" class="form-field" placeholder="Estimated time">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-item">
+                        <label class="form-label" for="serviceDescription">Description</label>
+                        <textarea id="serviceDescription" class="form-text" placeholder="Describe your service..."></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-item">
+                                <label class="form-label" for="serviceStatus">Status</label>
+                                <select id="serviceStatus" class="form-select">
+                                    <option value="active">Active</option>
+                                    <option value="draft">Draft</option>
+                                    <option value="inactive">Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-col">
+                            <div class="form-item">
+                                <label class="form-label" for="serviceTags">Tags (comma separated)</label>
+                                <input type="text" id="serviceTags" class="form-field" placeholder="web, design, development">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-item">
+                        <label class="form-label" for="serviceIcon">Icon Class</label>
+                        <input type="text" id="serviceIcon" class="form-field" placeholder="FontAwesome icon class">
+                    </div>
+                    
+                    <div class="form-cta">
+                        <button type="button" class="form-btn btn-secondary" id="cancelForm">Cancel</button>
+                        <button type="submit" class="form-btn btn-primary">Add Service</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle sidebar on mobile
+        document.getElementById('menuTrigger').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('active');
+        });
+
+        // Service form functionality
+        const serviceFormModal = document.getElementById('serviceFormModal');
+        const addServiceBtn = document.getElementById('addServiceBtn');
+        const closeForm = document.getElementById('closeForm');
+        const cancelForm = document.getElementById('cancelForm');
+        const serviceForm = document.getElementById('serviceForm');
+
+        // Show form
+        addServiceBtn.addEventListener('click', function() {
+            serviceFormModal.classList.add('active');
+        });
+
+        // Hide form
+        function hideForm() {
+            serviceFormModal.classList.remove('active');
+        }
+
+        closeForm.addEventListener('click', hideForm);
+        cancelForm.addEventListener('click', hideForm);
+
+        // Submit form
+        serviceForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const serviceName = document.getElementById('serviceName').value;
+            const serviceCategory = document.getElementById('serviceCategory').value;
+            
+            // In a real app, you would send this data to a server
+            alert(`Service "${serviceName}" added successfully!`);
+            
+            // Reset form and hide modal
+            serviceForm.reset();
+            hideForm();
+            
+            // Here you would typically update the services table
+        });
+
+        // Action buttons functionality
+        document.querySelectorAll('.action-icon').forEach(button => {
+            button.addEventListener('click', function() {
+                const action = this.querySelector('i').className.includes('edit') ? 'Edit' : 'Delete';
+                const serviceRow = this.closest('tr');
+                const serviceName = serviceRow.querySelector('.service-title').textContent;
+                
+                if (action === 'Edit') {
+                    // Populate the form with existing data
+                    document.getElementById('serviceName').value = serviceName;
+                    serviceFormModal.classList.add('active');
+                } else {
+                    if (confirm(`Are you sure you want to delete "${serviceName}"?`)) {
+                        serviceRow.remove();
+                        // In a real app, you would also delete from the database
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
