@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Management System</title>
+    <title>Profile Management</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -21,18 +21,18 @@
             overflow-x: hidden;
         }
 
-        .about-container {
+        .admin-container {
             display: flex;
             min-height: 100vh;
         }
 
         /* Sidebar Styles */
-        .about-sidebar {
+        .admin-sidebar {
             width: 250px;
             background: #111111;
             border-right: 1px solid rgba(77, 166, 255, 0.2);
             padding: 25px 0;
-            transition: all 0.3s ease;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: fixed;
             height: 100vh;
             z-index: 100;
@@ -61,16 +61,16 @@
             -webkit-text-fill-color: transparent;
         }
 
-        .about-nav ul {
+        .admin-nav ul {
             list-style: none;
             padding: 0 15px;
         }
 
-        .about-nav li {
+        .admin-nav li {
             margin-bottom: 5px;
         }
 
-        .about-nav a {
+        .admin-nav a {
             display: flex;
             align-items: center;
             padding: 15px 20px;
@@ -78,21 +78,22 @@
             text-decoration: none;
             border-radius: 10px;
             transition: all 0.3s ease;
+            min-height: 48px;
         }
 
-        .about-nav a:hover,
-        .about-nav a.active {
+        .admin-nav a:hover,
+        .admin-nav a.active {
             background: rgba(77, 166, 255, 0.1);
             color: #fff;
             transform: translateX(5px);
         }
 
-        .about-nav a.active {
+        .admin-nav a.active {
             border-left: 3px solid #4da6ff;
             box-shadow: 0 0 15px rgba(77, 166, 255, 0.2);
         }
 
-        .about-nav i {
+        .admin-nav i {
             font-size: 1.2rem;
             margin-right: 15px;
             width: 25px;
@@ -115,20 +116,20 @@
         }
 
         /* Main Content */
-        .about-main {
+        .admin-main {
             flex: 1;
             margin-left: 250px;
-            transition: all 0.3s ease;
+            transition: margin-left 0.3s ease;
         }
 
         /* Topbar Styles */
-        .about-topbar {
+        .admin-topbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
             height: 70px;
             background: #111111;
-            padding: 0 30px;
+            padding: 0 20px;
             border-bottom: 1px solid rgba(77, 166, 255, 0.2);
             position: sticky;
             top: 0;
@@ -143,9 +144,12 @@
 
         .menu-trigger {
             font-size: 1.5rem;
-            margin-right: 20px;
+            margin-right: 15px;
             cursor: pointer;
             display: none;
+            padding: 10px;
+            min-width: 44px;
+            min-height: 44px;
         }
 
         .topbar-heading {
@@ -155,27 +159,34 @@
             text-shadow: 0 0 10px rgba(77, 166, 255, 0.5);
         }
 
-        .about-dropdown {
+        .admin-dropdown {
             position: relative;
         }
 
-        .about-dropbtn {
+        .admin-dropbtn {
             display: flex;
             align-items: center;
             background: transparent;
             border: none;
             color: #fff;
             cursor: pointer;
-            padding: 8px 15px;
+            padding: 10px 15px;
             border-radius: 30px;
             transition: all 0.3s ease;
+            min-width: 44px;
+            min-height: 44px;
         }
 
-        .about-dropbtn:hover {
+        .admin-dropbtn:hover {
             background: rgba(77, 166, 255, 0.1);
         }
 
-        .about-avatar {
+        .admin-dropbtn.active {
+            background: rgba(77, 166, 255, 0.2);
+            box-shadow: 0 0 10px rgba(77, 166, 255, 0.3);
+        }
+
+        .admin-avatar {
             width: 40px;
             height: 40px;
             border-radius: 50%;
@@ -193,46 +204,53 @@
             font-weight: 500;
         }
 
-        .about-dropdown-content {
+        .admin-dropdown-content {
             position: absolute;
             right: 0;
             top: 120%;
             background: #111111;
             border: 1px solid rgba(77, 166, 255, 0.2);
             border-radius: 10px;
-            min-width: 200px;
+            min-width: 180px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             display: none;
             overflow: hidden;
             z-index: 100;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
 
-        .about-dropdown-content a {
+        .admin-dropdown-content.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .admin-dropdown-content a {
             display: flex;
             align-items: center;
             padding: 12px 20px;
             color: #bbbbbb;
             text-decoration: none;
             transition: all 0.3s ease;
+            font-size: 0.95rem;
         }
 
-        .about-dropdown-content a:hover {
+        .admin-dropdown-content a:hover {
             background: rgba(77, 166, 255, 0.1);
             color: #fff;
         }
 
-        .about-dropdown-content i {
+        .admin-dropdown-content i {
             width: 25px;
             margin-right: 10px;
             font-size: 0.9rem;
-        }
-
-        .about-dropdown:hover .about-dropdown-content {
-            display: block;
+            text-align: center;
         }
 
         /* Content Area */
-        .about-content {
+        .admin-content {
             padding: 30px;
             min-height: calc(100vh - 70px - 60px);
         }
@@ -243,13 +261,13 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 15px;
         }
 
         .content-head-left h1 {
             font-size: 2.2rem;
             font-weight: 700;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             background: linear-gradient(90deg, #4da6ff, #0066cc);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -262,141 +280,32 @@
             font-weight: 300;
         }
 
-        /* Edit About Button */
-        .edit-about-btn {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 14px 25px;
-            background: linear-gradient(135deg, #4da6ff, #0066cc);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(77, 166, 255, 0.3);
-        }
-
-        .edit-about-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(77, 166, 255, 0.5);
-        }
-
-        .edit-about-btn i {
-            font-size: 1.3rem;
-            transition: transform 0.3s ease;
-        }
-
-        .edit-about-btn:hover i {
-            transform: rotate(90deg);
-        }
-
-        /* About Content */
-        .about-info-container {
+        /* Profile Form */
+        .profile-form-container {
             background: rgba(15, 15, 15, 0.7);
             border: 1px solid rgba(77, 166, 255, 0.2);
             border-radius: 15px;
-            padding: 25px;
+            padding: 20px;
             backdrop-filter: blur(10px);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
+            max-width: 700px;
+            margin: 0 auto;
         }
 
-        .about-info-section {
+        .profile-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
             margin-bottom: 20px;
         }
 
-        .about-info-section h2 {
-            font-size: 1.6rem;
-            font-weight: 600;
-            color: #fff;
-            margin-bottom: 15px;
-        }
-
-        .about-info-section p {
-            color: #bbbbbb;
-            font-size: 1rem;
-            line-height: 1.6;
-        }
-
-        /* About Form Modal */
-        .about-form-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .about-form-modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .form-panel {
-            background: rgba(15, 15, 15, 0.95);
-            border: 1px solid rgba(77, 166, 255, 0.3);
-            border-radius: 15px;
-            width: 100%;
-            max-width: 700px;
-            box-shadow: 0 0 40px rgba(77, 166, 255, 0.2);
-            backdrop-filter: blur(10px);
-            transform: translateY(20px);
-            transition: transform 0.4s ease;
-        }
-
-        .about-form-modal.active .form-panel {
-            transform: translateY(0);
-        }
-
-        .form-head {
-            padding: 20px 25px;
-            border-bottom: 1px solid rgba(77, 166, 255, 0.2);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .form-head h2 {
-            font-size: 1.8rem;
-            font-weight: 600;
-            background: linear-gradient(90deg, #4da6ff, #0066cc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .close-form {
-            background: transparent;
-            border: none;
-            color: #bbbbbb;
-            font-size: 1.5rem;
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .close-form:hover {
-            color: #e74c3c;
-            background: rgba(231, 76, 60, 0.1);
-        }
-
-        .form-body {
-            padding: 25px;
+        .form-col {
+            flex: 1;
         }
 
         .form-item {
@@ -408,31 +317,28 @@
             margin-bottom: 8px;
             color: #bbbbbb;
             font-weight: 500;
+            font-size: 0.95rem;
         }
 
         .form-field,
-        .form-text {
+        .form-select {
             width: 100%;
-            padding: 14px 16px;
+            padding: 12px 16px;
             background: rgba(25, 25, 25, 0.7);
             border: 1px solid rgba(77, 166, 255, 0.2);
             border-radius: 8px;
             color: #fff;
             font-family: 'Poppins', sans-serif;
-            font-size: 1rem;
+            font-size: 0.95rem;
             transition: all 0.3s ease;
+            min-height: 44px;
         }
 
         .form-field:focus,
-        .form-text:focus {
+        .form-select:focus {
             outline: none;
             border-color: #4da6ff;
             box-shadow: 0 0 0 3px rgba(77, 166, 255, 0.2);
-        }
-
-        .form-text {
-            min-height: 120px;
-            resize: vertical;
         }
 
         .form-cta {
@@ -443,13 +349,14 @@
         }
 
         .form-btn {
-            padding: 12px 30px;
+            padding: 12px 25px;
             border-radius: 8px;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 0.95rem;
             cursor: pointer;
             transition: all 0.3s ease;
             border: none;
+            min-height: 44px;
         }
 
         .btn-primary {
@@ -474,18 +381,29 @@
             color: #fff;
         }
 
+        /* Footer */
+        .admin-footer {
+            background: #111111;
+            border-top: 1px solid rgba(77, 166, 255, 0.2);
+            padding: 20px 30px;
+            text-align: center;
+            color: #bbbbbb;
+            font-size: 0.9rem;
+        }
+
         /* Responsive */
         @media (max-width: 992px) {
-            .about-sidebar {
+            .admin-sidebar {
                 transform: translateX(-100%);
                 width: 70px;
+                background: rgba(17, 17, 17, 0.95);
             }
 
-            .about-sidebar.active {
+            .admin-sidebar.active {
                 transform: translateX(0);
             }
 
-            .about-main {
+            .admin-main {
                 margin-left: 0;
             }
 
@@ -495,88 +413,148 @@
                 display: none;
             }
 
-            .about-nav a {
+            .admin-nav a {
                 justify-content: center;
-                padding: 15px;
+                padding: 12px;
             }
 
-            .about-nav i {
+            .admin-nav i {
                 margin-right: 0;
                 font-size: 1.4rem;
             }
 
-            .about-nav a.active {
+            .admin-nav a.active {
                 border-left: none;
                 border-radius: 50%;
+                background: rgba(77, 166, 255, 0.2);
             }
 
             .menu-trigger {
                 display: block;
             }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
         }
 
         @media (max-width: 768px) {
-            .about-topbar {
+            .admin-topbar {
                 padding: 0 15px;
+            }
+
+            .topbar-heading {
+                font-size: 1.2rem;
             }
 
             .admin-username {
                 display: none;
             }
 
-            .about-dropbtn {
+            .admin-dropbtn {
                 padding: 8px;
             }
 
-            .content-head {
-                flex-direction: column;
-                align-items: flex-start;
+            .admin-content {
+                padding: 20px;
             }
 
-            .form-panel {
-                width: 95%;
-                margin: 0 auto;
+            .content-head-left h1 {
+                font-size: 1.8rem;
+            }
+
+            .content-head-left p {
+                font-size: 1rem;
+            }
+
+            .profile-form-container {
+                padding: 15px;
             }
         }
 
         @media (max-width: 576px) {
-            .about-info-section h2 {
-                font-size: 1.4rem;
+            .admin-content {
+                padding: 15px;
             }
 
-            .about-info-section p {
-                font-size: 0.9rem;
+            .content-head {
+                gap: 10px;
             }
 
-            .form-head h2 {
+            .content-head-left h1 {
                 font-size: 1.5rem;
             }
 
-            .form-body {
-                padding: 20px 15px;
+            .content-head-left p {
+                font-size: 0.9rem;
+            }
+
+            .form-field,
+            .form-select {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+                min-height: 40px;
+            }
+
+            .form-label {
+                font-size: 0.9rem;
+            }
+
+            .form-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+                min-height: 40px;
+            }
+
+            .admin-dropdown-content {
+                min-width: 160px;
+            }
+
+            .admin-dropdown-content a {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+
+            .admin-dropdown-content i {
+                font-size: 0.85rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="about-container">
+    <div class="admin-container">
         <!-- Sidebar -->
-        <div class="about-sidebar" id="sidebar">
+        <div class="admin-sidebar" id="sidebar">
             <div class="sidebar-brand">
-                <i class="fas fa-info-circle"></i>
-                <h2>About Manager</h2>
+                <i class="fas fa-user"></i>
+                <h2>Profile Manager</h2>
             </div>
 
-            <nav class="about-nav">
+            <nav class="admin-nav">
                 <ul>
                     <li>
-                        <a href="#">
+                        <a href="../index.html">
                             <i class="fas fa-tachometer-alt"></i>
                             <span class="nav-text">Dashboard</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="projects.html">
+                            <i class="fas fa-project-diagram"></i>
+                            <span class="nav-text">Projects</span>
+                            <span class="nav-count">12</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="blogs.html">
+                            <i class="fas fa-blog"></i>
+                            <span class="nav-text">Blog Posts</span>
+                            <span class="nav-count">24</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="services.html">
                             <i class="fas fa-concierge-bell"></i>
                             <span class="nav-text">Services</span>
                             <span class="nav-count">15</span>
@@ -590,15 +568,15 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <i class="fas fa-calendar-alt"></i>
-                            <span class="nav-text">Appointments</span>
+                        <a href="admins.html">
+                            <i class="fas fa-user-shield"></i>
+                            <span class="nav-text">Admins</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="active">
-                            <i class="fas fa-info-circle"></i>
-                            <span class="nav-text">About</span>
+                        <a href="profile.html" class="active">
+                            <i class="fas fa-user"></i>
+                            <span class="nav-text">Profile</span>
                         </a>
                     </li>
                     <li>
@@ -612,24 +590,24 @@
         </div>
 
         <!-- Main Content -->
-        <div class="about-main">
+        <div class="admin-main">
             <!-- Topbar -->
-            <div class="about-topbar">
+            <div class="admin-topbar">
                 <div class="topbar-section">
                     <span class="menu-trigger" id="menuTrigger">
                         <i class="fas fa-bars"></i>
                     </span>
-                    <div class="topbar-heading">About Management</div>
+                    <div class="topbar-heading">Profile Management</div>
                 </div>
 
-                <div class="about-dropdown">
-                    <button class="about-dropbtn">
-                        <div class="about-avatar">AJ</div>
+                <div class="admin-dropdown">
+                    <button class="admin-dropbtn" id="adminDropBtn">
+                        <div class="admin-avatar">AJ</div>
                         <span class="admin-username">Admin Jane</span>
                         <i class="fas fa-caret-down"></i>
                     </button>
-                    <div class="about-dropdown-content">
-                        <a href="#">
+                    <div class="admin-dropdown-content" id="adminDropdownContent">
+                        <a href="profile.html">
                             <i class="fas fa-user"></i>
                             My Profile
                         </a>
@@ -646,83 +624,60 @@
             </div>
 
             <!-- Content -->
-            <div class="about-content">
+            <div class="admin-content">
                 <div class="content-head">
                     <div class="content-head-left">
-                        <h1>About Page</h1>
-                        <p>Manage your organization's information and details</p>
+                        <h1>My Profile</h1>
+                        <p>Update your personal information</p>
                     </div>
-
-                    <button class="edit-about-btn" id="editAboutBtn">
-                        <i class="fas fa-edit"></i>
-                        Edit About Info
-                    </button>
                 </div>
 
-                <!-- About Info -->
-                <div class="about-info-container">
-                    <div class="about-info-section">
-                        <h2>Company Overview</h2>
-                        <p>
-                            We are a leading provider of innovative solutions, dedicated to delivering exceptional services in technology and consulting. Founded in 2010, our mission is to empower businesses through cutting-edge technology and unparalleled support.
-                        </p>
-                    </div>
-                    <div class="about-info-section">
-                        <h2>Our Mission</h2>
-                        <p>
-                            To transform businesses by providing innovative, reliable, and scalable solutions that drive success and growth.
-                        </p>
-                    </div>
-                    <div class="about-info-section">
-                        <h2>Contact Information</h2>
-                        <p>
-                            Email: contact@company.com<br>
-                            Phone: (123) 456-7890<br>
-                            Address: 123 Innovation Drive, Tech City, TC 12345
-                        </p>
-                    </div>
+                <!-- Profile Form -->
+                <div class="profile-form-container">
+                    <form id="profileForm" class="profile-form">
+                        <div class="form-row">
+                            <div class="form-col">
+                                <div class="form-item">
+                                    <label class="form-label" for="profileName">Full Name</label>
+                                    <input type="text" id="profileName" class="form-field" value="Jane Doe" required>
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <div class="form-item">
+                                    <label class="form-label" for="profileEmail">Email</label>
+                                    <input type="email" id="profileEmail" class="form-field" value="jane.doe@company.com" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-col">
+                                <div class="form-item">
+                                    <label class="form-label" for="profileRole">Role</label>
+                                    <select id="profileRole" class="form-select" required>
+                                        <option value="super_admin" selected>Super Admin</option>
+                                        <option value="content_manager">Content Manager</option>
+                                        <option value="support_admin">Support Admin</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <div class="form-item">
+                                    <label class="form-label" for="profilePassword">New Password</label>
+                                    <input type="password" id="profilePassword" class="form-field" placeholder="Enter new password">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-cta">
+                            <button type="button" class="form-btn btn-secondary" id="cancelForm">Cancel</button>
+                            <button type="submit" class="form-btn btn-primary">Save Changes</button>
+                        </div>
+                    </form>
                 </div>
             </div>
 
             <!-- Footer -->
-            <div class="service-footer">
-                <p>&copy; 2023 About Management System. All rights reserved. | Designed with <i class="fas fa-heart" style="color: #e74c3c;"></i> for service providers</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- About Form Modal -->
-    <div class="about-form-modal" id="aboutFormModal">
-        <div class="form-panel">
-            <div class="form-head">
-                <h2>Edit About Information</h2>
-                <button class="close-form" id="closeForm">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-
-            <div class="form-body">
-                <form id="aboutForm">
-                    <div class="form-item">
-                        <label class="form-label" for="companyOverview">Company Overview</label>
-                        <textarea id="companyOverview" class="form-text" placeholder="Enter company overview..."></textarea>
-                    </div>
-
-                    <div class="form-item">
-                        <label class="form-label" for="missionStatement">Mission Statement</label>
-                        <textarea id="missionStatement" class="form-text" placeholder="Enter mission statement..."></textarea>
-                    </div>
-
-                    <div class="form-item">
-                        <label class="form-label" for="contactInfo">Contact Information</label>
-                        <textarea id="contactInfo" class="form-text" placeholder="Enter contact information..."></textarea>
-                    </div>
-
-                    <div class="form-cta">
-                        <button type="button" class="form-btn btn-secondary" id="cancelForm">Cancel</button>
-                        <button type="submit" class="form-btn btn-primary">Save Changes</button>
-                    </div>
-                </form>
+            <div class="admin-footer">
+                <p>&copy; 2023 Profile Management System. All rights reserved. | Designed with <i class="fas fa-heart" style="color: #e74c3c;"></i> for service providers</p>
             </div>
         </div>
     </div>
@@ -733,50 +688,41 @@
             document.getElementById('sidebar').classList.toggle('active');
         });
 
-        // About form functionality
-        const aboutFormModal = document.getElementById('aboutFormModal');
-        const editAboutBtn = document.getElementById('editAboutBtn');
-        const closeForm = document.getElementById('closeForm');
-        const cancelForm = document.getElementById('cancelForm');
-        const aboutForm = document.getElementById('aboutForm');
+        // Dropdown toggle functionality
+        const dropBtn = document.getElementById('adminDropBtn');
+        const dropdownContent = document.getElementById('adminDropdownContent');
 
-        // Show form
-        editAboutBtn.addEventListener('click', function() {
-            // Populate form with existing data
-            document.getElementById('companyOverview').value = `We are a leading provider of innovative solutions, dedicated to delivering exceptional services in technology and consulting. Founded in 2010, our mission is to empower businesses through cutting-edge technology and unparalleled support.`;
-            document.getElementById('missionStatement').value = `To transform businesses by providing innovative, reliable, and scalable solutions that drive success and growth.`;
-            document.getElementById('contactInfo').value = `Email: contact@company.com\nPhone: (123) 456-7890\nAddress: 123 Innovation Drive, Tech City, TC 12345`;
-            aboutFormModal.classList.add('active');
+        dropBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            dropdownContent.classList.toggle('show');
+            dropBtn.classList.toggle('active');
         });
 
-        // Hide form
-        function hideForm() {
-            aboutFormModal.classList.remove('active');
-        }
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!dropBtn.contains(e.target) && !dropdownContent.contains(e.target)) {
+                dropdownContent.classList.remove('show');
+                dropBtn.classList.remove('active');
+            }
+        });
 
-        closeForm.addEventListener('click', hideForm);
-        cancelForm.addEventListener('click', hideForm);
+        // Profile form functionality
+        const profileForm = document.getElementById('profileForm');
+        const cancelForm = document.getElementById('cancelForm');
 
-        // Submit form
-        aboutForm.addEventListener('submit', function(e) {
+        cancelForm.addEventListener('click', function() {
+            profileForm.reset();
+            document.getElementById('profileName').value = 'Jane Doe';
+            document.getElementById('profileEmail').value = 'jane.doe@company.com';
+            document.getElementById('profileRole').value = 'super_admin';
+            document.getElementById('profilePassword').value = '';
+        });
+
+        profileForm.addEventListener('submit', function(e) {
             e.preventDefault();
-
-            // Get form values
-            const companyOverview = document.getElementById('companyOverview').value;
-            const missionStatement = document.getElementById('missionStatement').value;
-            const contactInfo = document.getElementById('contactInfo').value;
-
-            // In a real app, you would send this data to a server
-            alert(`About information updated successfully!`);
-
-            // Update the displayed content
-            document.querySelectorAll('.about-info-section p')[0].textContent = companyOverview;
-            document.querySelectorAll('.about-info-section p')[1].textContent = missionStatement;
-            document.querySelectorAll('.about-info-section p')[2].innerHTML = contactInfo.replace(/\n/g, '<br>');
-
-            // Reset form and hide modal
-            aboutForm.reset();
-            hideForm();
+            const profileName = document.getElementById('profileName').value;
+            alert(`Profile for "${profileName}" updated successfully!`);
+            // In a real app, send data to server
         });
     </script>
 </body>
