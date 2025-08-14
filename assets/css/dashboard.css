@@ -309,15 +309,6 @@
       display: block;
   }
 
-  /* Footer */
-  .admin-footer {
-      background: #111111;
-      border-top: 1px solid rgba(77, 166, 255, 0.2);
-      padding: 20px 30px;
-      text-align: center;
-      color: #bbbbbb;
-      font-size: 0.9rem;
-  }
 
   /* Responsive */
   @media (max-width: 1200px) {
