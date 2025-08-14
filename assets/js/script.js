@@ -1,15 +1,22 @@
-  // Toggle sidebar on mobile
+     // Toggle sidebar on mobile
         document.getElementById('menuToggle').addEventListener('click', function () {
             document.getElementById('sidebar').classList.toggle('active');
         });
 
-        // Simulate loading of charts
-        document.addEventListener('DOMContentLoaded', function () {
-            // In a real implementation, this would initialize charts
-            setTimeout(function () {
-                const placeholders = document.querySelectorAll('.chart-placeholder');
-                placeholders.forEach(placeholder => {
-                    placeholder.innerHTML = '<div><i class="fas fa-check-circle"></i><p>Chart loaded successfully</p></div>';
-                });
-            }, 1500);
+        // Dropdown toggle functionality
+        const dropBtn = document.getElementById('adminDropBtn');
+        const dropdownContent = document.getElementById('adminDropdownContent');
+
+        dropBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            dropdownContent.classList.toggle('show');
+            dropBtn.classList.toggle('active');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function (e) {
+            if (!dropBtn.contains(e.target) && !dropdownContent.contains(e.target)) {
+                dropdownContent.classList.remove('show');
+                dropBtn.classList.remove('active');
+            }
         });

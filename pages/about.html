@@ -1,609 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile Management</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>About Management System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: #0a0a0a;
-            color: #fff;
-            font-family: 'Poppins', sans-serif;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        .admin-container {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        /* Sidebar Styles */
-        .admin-sidebar {
-            width: 250px;
-            background: #111111;
-            border-right: 1px solid rgba(77, 166, 255, 0.2);
-            padding: 25px 0;
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: fixed;
-            height: 100vh;
-            z-index: 100;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-        }
-
-        .sidebar-brand {
-            display: flex;
-            align-items: center;
-            padding: 0 25px 25px;
-            border-bottom: 1px solid rgba(77, 166, 255, 0.2);
-            margin-bottom: 25px;
-        }
-
-        .sidebar-brand i {
-            font-size: 28px;
-            color: #4da6ff;
-            margin-right: 15px;
-        }
-
-        .sidebar-brand h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(90deg, #4da6ff, #0066cc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .admin-nav ul {
-            list-style: none;
-            padding: 0 15px;
-        }
-
-        .admin-nav li {
-            margin-bottom: 5px;
-        }
-
-        .admin-nav a {
-            display: flex;
-            align-items: center;
-            padding: 15px 20px;
-            color: #bbbbbb;
-            text-decoration: none;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-            min-height: 48px;
-        }
-
-        .admin-nav a:hover,
-        .admin-nav a.active {
-            background: rgba(77, 166, 255, 0.1);
-            color: #fff;
-            transform: translateX(5px);
-        }
-
-        .admin-nav a.active {
-            border-left: 3px solid #4da6ff;
-            box-shadow: 0 0 15px rgba(77, 166, 255, 0.2);
-        }
-
-        .admin-nav i {
-            font-size: 1.2rem;
-            margin-right: 15px;
-            width: 25px;
-            text-align: center;
-        }
-
-        .nav-text {
-            font-size: 1.05rem;
-            font-weight: 500;
-        }
-
-        .nav-count {
-            margin-left: auto;
-            background: #4da6ff;
-            color: white;
-            font-size: 0.8rem;
-            padding: 3px 8px;
-            border-radius: 20px;
-            font-weight: 600;
-        }
-
-        /* Main Content */
-        .admin-main {
-            flex: 1;
-            margin-left: 250px;
-            transition: margin-left 0.3s ease;
-        }
-
-        /* Topbar Styles */
-        .admin-topbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 70px;
-            background: #111111;
-            padding: 0 20px;
-            border-bottom: 1px solid rgba(77, 166, 255, 0.2);
-            position: sticky;
-            top: 0;
-            z-index: 90;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .topbar-section {
-            display: flex;
-            align-items: center;
-        }
-
-        .menu-trigger {
-            font-size: 1.5rem;
-            margin-right: 15px;
-            cursor: pointer;
-            display: none;
-            padding: 10px;
-            min-width: 44px;
-            min-height: 44px;
-        }
-
-        .topbar-heading {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: #4da6ff;
-            text-shadow: 0 0 10px rgba(77, 166, 255, 0.5);
-        }
-
-        .admin-dropdown {
-            position: relative;
-        }
-
-        .admin-dropbtn {
-            display: flex;
-            align-items: center;
-            background: transparent;
-            border: none;
-            color: #fff;
-            cursor: pointer;
-            padding: 10px 15px;
-            border-radius: 30px;
-            transition: all 0.3s ease;
-            min-width: 44px;
-            min-height: 44px;
-        }
-
-        .admin-dropbtn:hover {
-            background: rgba(77, 166, 255, 0.1);
-        }
-
-        .admin-dropbtn.active {
-            background: rgba(77, 166, 255, 0.2);
-            box-shadow: 0 0 10px rgba(77, 166, 255, 0.3);
-        }
-
-        .admin-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #4da6ff, #0066cc);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 10px;
-            font-weight: 600;
-            font-size: 1.2rem;
-        }
-
-        .admin-username {
-            margin-right: 10px;
-            font-weight: 500;
-        }
-
-        .admin-dropdown-content {
-            position: absolute;
-            right: 0;
-            top: 120%;
-            background: #111111;
-            border: 1px solid rgba(77, 166, 255, 0.2);
-            border-radius: 10px;
-            min-width: 180px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            display: none;
-            overflow: hidden;
-            z-index: 100;
-            opacity: 0;
-            transform: translateY(-10px);
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-
-        .admin-dropdown-content.show {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .admin-dropdown-content a {
-            display: flex;
-            align-items: center;
-            padding: 12px 20px;
-            color: #bbbbbb;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 0.95rem;
-        }
-
-        .admin-dropdown-content a:hover {
-            background: rgba(77, 166, 255, 0.1);
-            color: #fff;
-        }
-
-        .admin-dropdown-content i {
-            width: 25px;
-            margin-right: 10px;
-            font-size: 0.9rem;
-            text-align: center;
-        }
-
-        /* Content Area */
-        .admin-content {
-            padding: 30px;
-            min-height: calc(100vh - 70px - 60px);
-        }
-
-        .content-head {
-            margin-bottom: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .content-head-left h1 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            background: linear-gradient(90deg, #4da6ff, #0066cc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: inline-block;
-        }
-
-        .content-head-left p {
-            color: #bbbbbb;
-            font-size: 1.1rem;
-            font-weight: 300;
-        }
-
-        /* Profile Form */
-        .profile-form-container {
-            background: rgba(15, 15, 15, 0.7);
-            border: 1px solid rgba(77, 166, 255, 0.2);
-            border-radius: 15px;
-            padding: 20px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .profile-form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .form-row {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .form-col {
-            flex: 1;
-        }
-
-        .form-item {
-            margin-bottom: 20px;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 8px;
-            color: #bbbbbb;
-            font-weight: 500;
-            font-size: 0.95rem;
-        }
-
-        .form-field,
-        .form-select {
-            width: 100%;
-            padding: 12px 16px;
-            background: rgba(25, 25, 25, 0.7);
-            border: 1px solid rgba(77, 166, 255, 0.2);
-            border-radius: 8px;
-            color: #fff;
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            min-height: 44px;
-        }
-
-        .form-field:focus,
-        .form-select:focus {
-            outline: none;
-            border-color: #4da6ff;
-            box-shadow: 0 0 0 3px rgba(77, 166, 255, 0.2);
-        }
-
-        .form-cta {
-            display: flex;
-            justify-content: flex-end;
-            gap: 15px;
-            padding-top: 10px;
-        }
-
-        .form-btn {
-            padding: 12px 25px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: none;
-            min-height: 44px;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #4da6ff, #0066cc);
-            color: white;
-            box-shadow: 0 5px 15px rgba(77, 166, 255, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(77, 166, 255, 0.5);
-        }
-
-        .btn-secondary {
-            background: rgba(50, 50, 50, 0.5);
-            color: #bbbbbb;
-            border: 1px solid rgba(77, 166, 255, 0.2);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(70, 70, 70, 0.5);
-            color: #fff;
-        }
-
-        /* Footer */
-        .admin-footer {
-            background: #111111;
-            border-top: 1px solid rgba(77, 166, 255, 0.2);
-            padding: 20px 30px;
-            text-align: center;
-            color: #bbbbbb;
-            font-size: 0.9rem;
-        }
-
-        /* Responsive */
-        @media (max-width: 992px) {
-            .admin-sidebar {
-                transform: translateX(-100%);
-                width: 70px;
-                background: rgba(17, 17, 17, 0.95);
-            }
-
-            .admin-sidebar.active {
-                transform: translateX(0);
-            }
-
-            .admin-main {
-                margin-left: 0;
-            }
-
-            .sidebar-brand h2,
-            .nav-text,
-            .nav-count {
-                display: none;
-            }
-
-            .admin-nav a {
-                justify-content: center;
-                padding: 12px;
-            }
-
-            .admin-nav i {
-                margin-right: 0;
-                font-size: 1.4rem;
-            }
-
-            .admin-nav a.active {
-                border-left: none;
-                border-radius: 50%;
-                background: rgba(77, 166, 255, 0.2);
-            }
-
-            .menu-trigger {
-                display: block;
-            }
-
-            .form-row {
-                flex-direction: column;
-                gap: 0;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .admin-topbar {
-                padding: 0 15px;
-            }
-
-            .topbar-heading {
-                font-size: 1.2rem;
-            }
-
-            .admin-username {
-                display: none;
-            }
-
-            .admin-dropbtn {
-                padding: 8px;
-            }
-
-            .admin-content {
-                padding: 20px;
-            }
-
-            .content-head-left h1 {
-                font-size: 1.8rem;
-            }
-
-            .content-head-left p {
-                font-size: 1rem;
-            }
-
-            .profile-form-container {
-                padding: 15px;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .admin-content {
-                padding: 15px;
-            }
-
-            .content-head {
-                gap: 10px;
-            }
-
-            .content-head-left h1 {
-                font-size: 1.5rem;
-            }
-
-            .content-head-left p {
-                font-size: 0.9rem;
-            }
-
-            .form-field,
-            .form-select {
-                padding: 10px 12px;
-                font-size: 0.9rem;
-                min-height: 40px;
-            }
-
-            .form-label {
-                font-size: 0.9rem;
-            }
-
-            .form-btn {
-                padding: 10px 20px;
-                font-size: 0.9rem;
-                min-height: 40px;
-            }
-
-            .admin-dropdown-content {
-                min-width: 160px;
-            }
-
-            .admin-dropdown-content a {
-                padding: 10px 15px;
-                font-size: 0.9rem;
-            }
-
-            .admin-dropdown-content i {
-                font-size: 0.85rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/css/about.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
+
 <body>
-    <div class="admin-container">
+    <div class="about-container">
         <!-- Sidebar -->
         <div class="admin-sidebar" id="sidebar">
-            <div class="sidebar-brand">
-                <i class="fas fa-user"></i>
-                <h2>Profile Manager</h2>
+            <div class="sidebar-logo">
+                <i class="fas fa-chart-line"></i>
+                <h2>Portfolio Admin</h2>
             </div>
 
             <nav class="admin-nav">
                 <ul>
                     <li>
-                        <a href="../index.html">
+                        <a href="../index.html" class="active">
                             <i class="fas fa-tachometer-alt"></i>
-                            <span class="nav-text">Dashboard</span>
+                            <span class="nav-label">Dashboard</span>
                         </a>
                     </li>
                     <li>
-                        <a href="projects.html">
-                            <i class="fas fa-project-diagram"></i>
-                            <span class="nav-text">Projects</span>
-                            <span class="nav-count">12</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="blogs.html">
+                        <a href="porjects.html">
                             <i class="fas fa-blog"></i>
-                            <span class="nav-text">Blog Posts</span>
-                            <span class="nav-count">24</span>
+                            <span class="nav-label">Projects</span>
+                            <span class="nav-badge">24</span>
                         </a>
                     </li>
                     <li>
                         <a href="services.html">
                             <i class="fas fa-concierge-bell"></i>
-                            <span class="nav-text">Services</span>
-                            <span class="nav-count">15</span>
+                            <span class="nav-label">Blogs</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="about.html">
+                            <i class="fas fa-info-circle"></i>
+                            <span class="nav-label">About</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="services.html">
+                            <i class="fas fa-concierge-bell"></i>
+                            <span class="nav-label">Services</span>
+                        </a>
+                    </li>
+
+
+
                     <li>
                         <a href="#">
-                            <i class="fas fa-users"></i>
-                            <span class="nav-text">Clients</span>
-                            <span class="nav-count">42</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="admins.html">
                             <i class="fas fa-user-shield"></i>
-                            <span class="nav-text">Admins</span>
+                            <span class="nav-label">Admin</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="profile.html" class="active">
-                            <i class="fas fa-user"></i>
-                            <span class="nav-text">Profile</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fas fa-cog"></i>
-                            <span class="nav-text">Settings</span>
-                        </a>
-                    </li>
+
                 </ul>
             </nav>
         </div>
-
         <!-- Main Content -->
-        <div class="admin-main">
+        <div class="about-main">
             <!-- Topbar -->
             <div class="admin-topbar">
-                <div class="topbar-section">
-                    <span class="menu-trigger" id="menuTrigger">
+                <div class="topbar-left">
+                    <span class="menu-toggle" id="menuToggle">
                         <i class="fas fa-bars"></i>
                     </span>
-                    <div class="topbar-heading">Profile Management</div>
+                    <div class="topbar-title">Dashboard Overview</div>
                 </div>
 
                 <div class="admin-dropdown">
                     <button class="admin-dropbtn" id="adminDropBtn">
                         <div class="admin-avatar">AJ</div>
-                        <span class="admin-username">Admin Jane</span>
+                        <span class="admin-name">Admin Jane</span>
                         <i class="fas fa-caret-down"></i>
                     </button>
                     <div class="admin-dropdown-content" id="adminDropdownContent">
@@ -616,114 +94,108 @@
                             Account Settings
                         </a>
                         <a href="#">
+                            <i class="fas fa-bell"></i>
+                            Notifications
+                        </a>
+                        <a href="#">
                             <i class="fas fa-sign-out-alt"></i>
                             Logout
                         </a>
                     </div>
                 </div>
             </div>
-
             <!-- Content -->
-            <div class="admin-content">
+            <div class="about-content">
                 <div class="content-head">
                     <div class="content-head-left">
-                        <h1>My Profile</h1>
-                        <p>Update your personal information</p>
+                        <h1>About Page</h1>
+                        <p>Manage your organization's information and details</p>
                     </div>
+
+                    <button class="edit-about-btn" id="editAboutBtn">
+                        <i class="fas fa-edit"></i>
+                        Edit About Info
+                    </button>
                 </div>
 
-                <!-- Profile Form -->
-                <div class="profile-form-container">
-                    <form id="profileForm" class="profile-form">
-                        <div class="form-row">
-                            <div class="form-col">
-                                <div class="form-item">
-                                    <label class="form-label" for="profileName">Full Name</label>
-                                    <input type="text" id="profileName" class="form-field" value="Jane Doe" required>
-                                </div>
-                            </div>
-                            <div class="form-col">
-                                <div class="form-item">
-                                    <label class="form-label" for="profileEmail">Email</label>
-                                    <input type="email" id="profileEmail" class="form-field" value="jane.doe@company.com" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-col">
-                                <div class="form-item">
-                                    <label class="form-label" for="profileRole">Role</label>
-                                    <select id="profileRole" class="form-select" required>
-                                        <option value="super_admin" selected>Super Admin</option>
-                                        <option value="content_manager">Content Manager</option>
-                                        <option value="support_admin">Support Admin</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-col">
-                                <div class="form-item">
-                                    <label class="form-label" for="profilePassword">New Password</label>
-                                    <input type="password" id="profilePassword" class="form-field" placeholder="Enter new password">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-cta">
-                            <button type="button" class="form-btn btn-secondary" id="cancelForm">Cancel</button>
-                            <button type="submit" class="form-btn btn-primary">Save Changes</button>
-                        </div>
-                    </form>
+                <!-- About Info -->
+                <div class="about-info-container">
+                    <div class="about-info-section">
+                        <h2>Company Overview</h2>
+                        <p>
+                            We are a leading provider of innovative solutions, dedicated to delivering exceptional
+                            services in technology and consulting. Founded in 2010, our mission is to empower businesses
+                            through cutting-edge technology and unparalleled support.
+                        </p>
+                    </div>
+                    <div class="about-info-section">
+                        <h2>Our Mission</h2>
+                        <p>
+                            To transform businesses by providing innovative, reliable, and scalable solutions that drive
+                            success and growth.
+                        </p>
+                    </div>
+                    <div class="about-info-section">
+                        <h2>Contact Information</h2>
+                        <p>
+                            Email: contact@company.com<br>
+                            Phone: (123) 456-7890<br>
+                            Address: 123 Innovation Drive, Tech City, TC 12345
+                        </p>
+                    </div>
                 </div>
             </div>
 
             <!-- Footer -->
-            <div class="admin-footer">
-                <p>&copy; 2023 Profile Management System. All rights reserved. | Designed with <i class="fas fa-heart" style="color: #e74c3c;"></i> for service providers</p>
+            <div class="about-footer">
+                <p>&copy; 2023 About Management System. All rights reserved. | Designed with <i class="fas fa-heart"
+                        style="color: #e74c3c;"></i> for service providers</p>
             </div>
         </div>
     </div>
 
-    <script>
-        // Toggle sidebar on mobile
-        document.getElementById('menuTrigger').addEventListener('click', function() {
-            document.getElementById('sidebar').classList.toggle('active');
-        });
+    <!-- About Form Modal -->
+    <div class="about-form-modal" id="aboutFormModal">
+        <div class="form-panel">
+            <div class="form-head">
+                <h2>Edit About Information</h2>
+                <button class="close-form" id="closeForm">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
 
-        // Dropdown toggle functionality
-        const dropBtn = document.getElementById('adminDropBtn');
-        const dropdownContent = document.getElementById('adminDropdownContent');
+            <div class="form-body">
+                <form id="aboutForm">
+                    <div class="form-item">
+                        <label class="form-label" for="companyOverview">Company Overview</label>
+                        <textarea id="companyOverview" class="form-text"
+                            placeholder="Enter company overview..."></textarea>
+                    </div>
 
-        dropBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            dropdownContent.classList.toggle('show');
-            dropBtn.classList.toggle('active');
-        });
+                    <div class="form-item">
+                        <label class="form-label" for="missionStatement">Mission Statement</label>
+                        <textarea id="missionStatement" class="form-text"
+                            placeholder="Enter mission statement..."></textarea>
+                    </div>
 
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!dropBtn.contains(e.target) && !dropdownContent.contains(e.target)) {
-                dropdownContent.classList.remove('show');
-                dropBtn.classList.remove('active');
-            }
-        });
+                    <div class="form-item">
+                        <label class="form-label" for="contactInfo">Contact Information</label>
+                        <textarea id="contactInfo" class="form-text"
+                            placeholder="Enter contact information..."></textarea>
+                    </div>
 
-        // Profile form functionality
-        const profileForm = document.getElementById('profileForm');
-        const cancelForm = document.getElementById('cancelForm');
+                    <div class="form-cta">
+                        <button type="button" class="form-btn btn-secondary" id="cancelForm">Cancel</button>
+                        <button type="submit" class="form-btn btn-primary">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-        cancelForm.addEventListener('click', function() {
-            profileForm.reset();
-            document.getElementById('profileName').value = 'Jane Doe';
-            document.getElementById('profileEmail').value = 'jane.doe@company.com';
-            document.getElementById('profileRole').value = 'super_admin';
-            document.getElementById('profilePassword').value = '';
-        });
 
-        profileForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const profileName = document.getElementById('profileName').value;
-            alert(`Profile for "${profileName}" updated successfully!`);
-            // In a real app, send data to server
-        });
-    </script>
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/about.js"></script>
 </body>
+
 </html>
