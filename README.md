@@ -17,8 +17,8 @@ It’s perfect as a starter template for admin dashboards, CMS, analytics, or an
 
 ---
 
-## 🖼️ Preview
-![Admin Panel Preview](https://via.placeholder.com/1000x600?text=Admin+Panel+Preview)
+## 🖼️ Demo
+![Admin Panel Preview](https://codebyimran-projects.github.io/portfolio-website-admin-panel/)
 
 ---
 
